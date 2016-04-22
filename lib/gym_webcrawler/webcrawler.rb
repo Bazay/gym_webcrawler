@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require_relative './../../lib/extensions/capybara'
 require 'capybara-screenshot'
 require_relative 'webcrawler_response'
