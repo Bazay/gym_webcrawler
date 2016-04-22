@@ -82,7 +82,7 @@ module GymWebcrawler
     private
 
       def current_user
-        { email: 'baronbloomer@gmail.com', password: '' }
+        { email: "#{ENV['user_email']}", password: "#{ENV['user_password']}" }
       end
 
       def formatted_time time
