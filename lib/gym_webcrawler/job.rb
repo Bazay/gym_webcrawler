@@ -1,4 +1,4 @@
-require 'gym_webcrawler/scheduler'
+require_relative 'scheduler'
 
 module GymWebcrawler
   class Job
