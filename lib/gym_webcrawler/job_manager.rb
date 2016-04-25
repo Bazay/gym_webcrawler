@@ -1,3 +1,4 @@
+require 'date'
 require_relative 'job_definitions'
 require_relative 'webcrawler'
 
@@ -32,16 +33,31 @@ module GymWebcrawler
         case response.action
         when 'delete'
           response.job.errors << response.message unless response.job.errors.include? response.message
-          logger.delete_confirmation_for_job response.job
-          job_stack.remove_job response.job
+          unless is_weekend?
+            logger.delete_confirmation_for_job response.job
+            job_stack.remove_job response.job
+          else
+            logger.error_confirmation_for_weekend_job
+          end
         when 'fail'
-          job_stack.fail_job! response.job, response.message
-          logger.fail_confirmation_for_job response.job
+          unless is_weekend?
+            job_stack.fail_job! response.job, response.message
+            logger.fail_confirmation_for_job response.job
+          else
+            logger.error_confirmation_for_weekend_job
+          end
         when 'success'
           logger.success_confirmation_for_job response.job
           job_stack.remove_job response.job
         end
       end
     end
+
+    private
+
+      def is_weekend?
+        today = Date.today
+        today.saturday? || today.sunday?
+      end
   end
 end
