@@ -123,8 +123,8 @@ RSpec.describe GymWebcrawler::Webcrawler do
       let(:day) { 4 }
 
       it_behaves_like 'formatted time for day' do
-        let(:expected_start_times) { ['5:30 PM'] }
-        let(:expected_end_times) { ['6:15 PM'] }
+        let(:expected_start_times) { ['5:45 PM'] }
+        let(:expected_end_times) { ['6:30 PM'] }
       end
     end
 

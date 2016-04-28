@@ -48,6 +48,11 @@ module GymWebcrawler
       job_info job
     end
 
+    def error_confirmation_for_weekend_job job
+      error "Error booking for job at #{formatted_datetime}. Is a 'weekend job' so nothing was done"
+      job_info job
+    end
+
     def webcrawler_error_message error
       error "!!!Webcrawler failed at #{formatted_datetime}!!! Reason: #{error}"
     end
@@ -59,6 +64,7 @@ module GymWebcrawler
       end
 
       def display_jobs jobs
+        line
         jobs.each do |job|
           job_info job
         end
@@ -70,6 +76,10 @@ module GymWebcrawler
         info "Description: #{job.name}, #{job.start_time} on #{day_name_from_numeric(job.day)}"
         info "Try count: #{job.try_count}"
         info "Errors: #{job.errors.uniq.join(', ')}"
+        line
+      end
+
+      def line
         info "----------------------------------------------------------------"
       end
 

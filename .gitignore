@@ -7,6 +7,5 @@
 /pkg/
 /spec/reports/
 /tmp/
-/logs/
-/spec/support/files/
-/spec/support/files/*
+/logs/log.txt
+/spec/support/files/test-log.txt

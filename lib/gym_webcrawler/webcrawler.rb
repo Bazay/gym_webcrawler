@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+require_relative './../../lib/extensions/capybara'
 require 'capybara-screenshot'
 require_relative 'webcrawler_response'
 
@@ -81,7 +83,7 @@ module GymWebcrawler
     private
 
       def current_user
-        { email: 'baronbloomer@gmail.com', password: '' }
+        { email: "#{ENV['user_email']}", password: "#{ENV['user_password']}" }
       end
 
       def formatted_time time
