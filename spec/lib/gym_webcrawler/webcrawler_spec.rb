@@ -82,6 +82,23 @@ RSpec.describe GymWebcrawler::Webcrawler do
     end
   end
 
+  describe '#sign_out' do
+    before do
+      crawler.go_to_website
+      crawler.sign_in
+    end
+
+    subject { crawler.sign_out }
+
+    it { expect { subject }.not_to raise_error }
+
+    context 'when safe is false' do
+      subject { crawler.sign_out safe: false }
+
+      it { expect { subject }.not_to raise_error }
+    end
+  end
+
   describe '#formatted_time' do
     let(:job_manager) { GymWebcrawler::JobManager.new logger, job_stack }
     let(:jobs) { job_manager.create_jobs_for_day day }

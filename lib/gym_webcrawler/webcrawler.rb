@@ -19,9 +19,8 @@ module GymWebcrawler
         enrol_in_classes current_user, jobs
       rescue => error
         raise error
-      # ensure
-      #   # Prevent memory leakage
-      #   session.driver.quit
+      ensure
+        sign_out
       end
     end
 
@@ -31,6 +30,7 @@ module GymWebcrawler
       jobs.each do |job|
         self.responses << try_enrol(job)
       end
+      sign_out
       responses
     end
 
@@ -67,6 +67,11 @@ module GymWebcrawler
       session.fill_in 'email', with: user[:email]
       session.fill_in 'password', with: user[:password]
       session.click_button 'Login'
+    end
+
+    def sign_out safe: true;
+      session.find('.dropdown-toggle').click if !safe || (safe && session.has_css?('.dropdown-toggle'))
+      session.click_link 'Logout' if !safe || (safe && session.has_link?('Logout'))
     end
 
     def find_lesson job
