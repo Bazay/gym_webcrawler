@@ -24,6 +24,8 @@ module GymWebcrawler
           'delete'
         when 'Reservation failed. We are sorry, this activity is fully booked already.'
           'delete'
+        when 'Reservation failed. You have cancelled this reservation. You cannot register again.'
+          'delete'
         when 'Your reservation is confirmed. Please check your email.'
           'success'
         when 'Reservation failed. You are not logged in.'
