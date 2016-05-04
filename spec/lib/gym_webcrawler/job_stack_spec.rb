@@ -10,6 +10,7 @@ RSpec.describe GymWebcrawler::JobStack do
   let(:end_time) { '08:30' }
   let(:day) { 1 }
   let(:job_at) { Time.now }
+  let(:max_job_fails) { 100 }
 
   subject { job_stack }
 
@@ -60,7 +61,7 @@ RSpec.describe GymWebcrawler::JobStack do
     it { expect { subject }.to change { job.try_count }.by 1 }
 
     context 'when job exceeds try count limit' do
-      before { job.try_count = 16 }
+      before { job.try_count = max_job_fails }
 
       it { is_expected.to eq nil }
       it { expect { subject }.to change { job_stack.jobs.count }.by -1 }

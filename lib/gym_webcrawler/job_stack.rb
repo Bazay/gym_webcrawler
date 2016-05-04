@@ -45,7 +45,7 @@ module GymWebcrawler
     private
 
       def max_job_fails
-        16
+        100
       end
 
       def job_exists? job
