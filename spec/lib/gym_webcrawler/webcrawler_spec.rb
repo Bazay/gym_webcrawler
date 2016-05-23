@@ -99,61 +99,61 @@ RSpec.describe GymWebcrawler::Webcrawler do
     end
   end
 
-  describe '#formatted_time' do
-    let(:job_manager) { GymWebcrawler::JobManager.new logger, job_stack }
-    let(:jobs) { job_manager.create_jobs_for_day day }
+  # describe '#formatted_time' do
+  #   let(:job_manager) { GymWebcrawler::JobManager.new logger, job_stack }
+  #   let(:jobs) { job_manager.create_jobs_for_day day }
 
-    shared_examples_for 'formatted time for day' do
+  #   shared_examples_for 'formatted time for day' do
 
-      it 'correctly formatted start times' do
-        jobs.each_with_index do |job, index|
-          expect(formatted_time job[:start_time]).to eq expected_start_times[index]
-        end
-      end
+  #     it 'correctly formatted start times' do
+  #       jobs.each_with_index do |job, index|
+  #         expect(formatted_time job[:start_time]).to eq expected_start_times[index]
+  #       end
+  #     end
 
-      it 'correctly formatted end times' do
-        jobs.each_with_index do |job, index|
-          expect(formatted_time job[:end_time]).to eq expected_end_times[index]
-        end
-      end
-    end
+  #     it 'correctly formatted end times' do
+  #       jobs.each_with_index do |job, index|
+  #         expect(formatted_time job[:end_time]).to eq expected_end_times[index]
+  #       end
+  #     end
+  #   end
 
-    context 'when monday' do
-      let(:day) { 1 }
+  #   context 'when monday' do
+  #     let(:day) { 1 }
 
-      it_behaves_like 'formatted time for day' do
-        let(:expected_start_times) { ['7:30 AM', '6:00 PM'] }
-        let(:expected_end_times) { ['8:30 AM', '7:00 PM'] }
-      end
-    end
+  #     it_behaves_like 'formatted time for day' do
+  #       let(:expected_start_times) { ['7:30 AM', '6:00 PM'] }
+  #       let(:expected_end_times) { ['8:30 AM', '7:00 PM'] }
+  #     end
+  #   end
 
-    context 'when wednesday' do
-      let(:day) { 3 }
+  #   context 'when wednesday' do
+  #     let(:day) { 3 }
 
-      it_behaves_like 'formatted time for day' do
-        let(:expected_start_times) { ['7:30 AM'] }
-        let(:expected_end_times) { ['8:30 AM'] }
-      end
-    end
+  #     it_behaves_like 'formatted time for day' do
+  #       let(:expected_start_times) { ['7:30 AM'] }
+  #       let(:expected_end_times) { ['8:30 AM'] }
+  #     end
+  #   end
 
-    context 'when thursday' do
-      let(:day) { 4 }
+  #   context 'when thursday' do
+  #     let(:day) { 4 }
 
-      it_behaves_like 'formatted time for day' do
-        let(:expected_start_times) { ['5:30 PM'] }
-        let(:expected_end_times) { ['6:15 PM'] }
-      end
-    end
+  #     it_behaves_like 'formatted time for day' do
+  #       let(:expected_start_times) { ['5:30 PM'] }
+  #       let(:expected_end_times) { ['6:15 PM'] }
+  #     end
+  #   end
 
-    context 'when saturday' do
-      let(:day) { 6 }
+  #   context 'when saturday' do
+  #     let(:day) { 6 }
 
-      it_behaves_like 'formatted time for day' do
-        let(:expected_start_times) { ['1:00 PM', '2:00 PM'] }
-        let(:expected_end_times) { ['2:00 PM', '3:00 PM'] }
-      end
-    end
-  end
+  #     it_behaves_like 'formatted time for day' do
+  #       let(:expected_start_times) { ['1:00 PM', '2:00 PM'] }
+  #       let(:expected_end_times) { ['2:00 PM', '3:00 PM'] }
+  #     end
+  #   end
+  # end
 
   def formatted_time time
     hour = time.split(':').first.to_i
