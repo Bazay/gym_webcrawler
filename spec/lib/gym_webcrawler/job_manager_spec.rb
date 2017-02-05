@@ -24,6 +24,7 @@ RSpec.describe GymWebcrawler::JobManager do
       let(:status) { 'error' }
       let(:message) { 'Reservation failed. This activity is no longer available' }
 
+      # FIXME: This fails if run on the weekend as weekend jobs are not deleted...
       it { expect { subject }.to change { job_stack.jobs.count }.by -1 }
     end
 
@@ -31,6 +32,7 @@ RSpec.describe GymWebcrawler::JobManager do
       let(:status) { 'error' }
       let(:message) { 'Reservation failed. You are not logged in.' }
 
+      # FIXME: This fails if run on the weekend as weekend jobs are not deleted...
       it { expect { subject }.to change { job.try_count }.by 1 }
     end
 

@@ -37,14 +37,14 @@ module GymWebcrawler
             logger.delete_confirmation_for_job response.job
             job_stack.remove_job response.job
           else
-            logger.error_confirmation_for_weekend_job
+            logger.error_confirmation_for_weekend_job response.job
           end
         when 'fail'
           unless is_weekend?
             job_stack.fail_job! response.job, response.message
             logger.fail_confirmation_for_job response.job
           else
-            logger.error_confirmation_for_weekend_job
+            logger.error_confirmation_for_weekend_job response.job
           end
         when 'success'
           logger.success_confirmation_for_job response.job

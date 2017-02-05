@@ -48,7 +48,7 @@ module GymWebcrawler
 
       def jobs_for_thursday
         [
-          job_info_parser('Boxing Tech Sparring with Harry', '18:00', '19:00')
+          job_info_parser('Boxing Tech Sparring with Harry', '18:00', '18:45')
         ]
       end
 
