@@ -8,7 +8,7 @@ module GymWebcrawler
 
     def initialize
       # See http://ruby.about.com/od/tasks/a/logger.htm
-      @logger = SchedulerLogger.new 'logs/log.txt', 'weekly'
+      @logger = SchedulerLogger.new log_file_path, 'weekly'
       @scheduler = Scheduler.new @logger
       @webcrawler = Webcrawler.new
     end
@@ -16,6 +16,12 @@ module GymWebcrawler
     def start
       scheduler.perform
     end
+
+    private
+
+      def log_file_path
+        File.dirname(__FILE__) + '/../logs/log.txt'
+      end
   end
 end
 
