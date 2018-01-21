@@ -7,52 +7,38 @@ RSpec.describe GymWebcrawler::Scheduler do
   subject { scheduler }
 
   describe '#align_scheduler' do
-    before do
-      allow(scheduler).to receive(:get_numeric_day) { day }
-    end
-
     subject { scheduler.align_scheduler }
 
-    context 'when sunday' do
-      let(:day) { 0 }
-
-      it { expect{ subject }.to change { scheduler.job_stack.jobs.count }.by 2 }
+    before do
+      allow(scheduler).to receive(:get_numeric_day) { today }
     end
 
-    context 'when monday' do
-      let(:day) { 1 }
+    shared_examples 'queues correct number of jobs' do
+      def total_jobs_count
+        get_jobs_count_for_day(today) + get_jobs_count_for_next_2_days
+      end
 
-      it { expect{ subject }.to change { scheduler.job_stack.jobs.count }.by 3 }
+      def get_jobs_count_for_day day
+        GymWebcrawler::JobDefinitions.new(day).jobs_for_day.count
+      end
+
+      def get_jobs_count_for_next_2_days
+        if today == 5
+          get_jobs_count_for_day(6) + get_jobs_count_for_day(0)
+        elsif today == 6
+          get_jobs_count_for_day(0) + get_jobs_count_for_day(1)
+        else
+          get_jobs_count_for_day(today + 1) + get_jobs_count_for_day(today + 2)
+        end
+      end
+
+      it { expect { subject }.to change { scheduler.job_stack.jobs.count }.by total_jobs_count }
     end
 
-    context 'when tuesday' do
-      let(:day) { 2 }
-
-      it { expect{ subject }.to change { scheduler.job_stack.jobs.count }.by 2 }
-    end
-
-    context 'when wednesday' do
-      let(:day) { 3 }
-
-      it { expect{ subject }.to change { scheduler.job_stack.jobs.count }.by 2 }
-    end
-
-    context 'when thursday' do
-      let(:day) { 4 }
-
-      it { expect{ subject }.to change { scheduler.job_stack.jobs.count }.by 3 }
-    end
-
-    context 'when friday' do
-      let(:day) { 5 }
-
-      it { expect{ subject }.to change { scheduler.job_stack.jobs.count }.by 2 }
-    end
-
-    context 'when saturday' do
-      let(:day) { 6 }
-
-      it { expect{ subject }.to change { scheduler.job_stack.jobs.count }.by 2 }
+    0..6.times do |count|
+      it_behaves_like "queues correct number of jobs" do
+        let(:today) { count }
+      end
     end
   end
 end

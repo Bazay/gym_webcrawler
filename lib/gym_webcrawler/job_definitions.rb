@@ -12,6 +12,8 @@ module GymWebcrawler
       case day
       when 'monday', 1
         jobs_for_monday
+      when 'tuesday', 2
+        jobs_for_tuesday
       when 'wednesday', 3
         jobs_for_wednesday
       when 'thursday', 4
@@ -35,27 +37,34 @@ module GymWebcrawler
 
       def jobs_for_monday
         [
-          job_info_parser('Boxing with Harry', '07:30', '8:30'),
-          job_info_parser('Boxing with Harry', '18:00', '19:00')
+          job_info_parser('BOXING', '07:30', '8:30'),
+          job_info_parser('BOXING', '18:00', '19:00')
+        ]
+      end
+
+      def jobs_for_tuesday
+        [
+          job_info_parser('Boxing', '13:00', '14:00'),
+          job_info_parser('Boxing', '19:00', '20:00')
         ]
       end
 
       def jobs_for_wednesday
         [
-          job_info_parser('Boxing with Harry', '07:30', '8:30')
+          job_info_parser('Boxing', '07:30', '8:30')
         ]
       end
 
       def jobs_for_thursday
         [
-          job_info_parser('Boxing Tech Sparring with Harry', '18:00', '18:45')
+          job_info_parser('Boxing', '13:00', '14:00'),
+          job_info_parser('Boxing Sparring', '18:00', '18:45')
         ]
       end
 
       def jobs_for_saturday
         [
-          job_info_parser('Boxing with Ryan', '13:00', '14:00'),
-          job_info_parser('Boxing Sparring with Ryan', '14:00', '15:00')
+          job_info_parser('Boxing', '13:00', '14:00')
         ]
       end
 
